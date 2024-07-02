@@ -1,25 +1,43 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Navbar from "./components/Navbar";
+import {Routes,Route} from "react-router-dom";
+import About from './components/About';
+import Cart from "./components/Cart";
+import Home from './components/Home';
+import {arr} from "./Database/Database";
 
-function App() {
+export default function App() {
+  // let obj={};
+  let vec=arr.map((item)=>{
+    // obj[item.id]=0;
+    return 0;
+  })
+  vec.push(0);
+  // // console.log(obj);
+  const [cnt,setCnt]=useState(0);
+  const [itemList,setItemList]=useState(vec);
+  // useEffect(()=>{
+  //   console.log(itemList);
+  // },[cnt]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {/* <Item count={cnt}
+        setCount={setCnt}
+        setItemList={setItemList}
+        itemList={itemList}
+      /> */}
+      <Navbar cnt={cnt}/>
+      <Routes>
+        <Route path="/" element={<Home 
+        cnt={cnt} 
+        setCnt={setCnt} 
+        itemList={itemList}
+          setItemList={setItemList}
+        />}/>
+        <Route path="/about" element={<About/>}/>
+        <Route path="/cart" element={<Cart items={cnt} itemList={itemList}/>}/>
+      </Routes>
+    </>
   );
 }
-
-export default App;
